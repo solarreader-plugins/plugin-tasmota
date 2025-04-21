@@ -13,7 +13,6 @@ data.
 - Supports Tasmota-compatible devices (e.g., Shelly, Sonoff)
 - Reads solar metrics such as voltage, current, power, daily/total yield over HTTP
 - Allows device control (on, off, toggle)
--
 
 ### Requirements
 
