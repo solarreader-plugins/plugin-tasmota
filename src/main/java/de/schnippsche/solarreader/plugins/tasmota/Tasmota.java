@@ -21,9 +21,7 @@
  */
 package de.schnippsche.solarreader.plugins.tasmota;
 
-import static de.schnippsche.solarreader.backend.util.Setting.OPTIONAL_PASSWORD;
-import static de.schnippsche.solarreader.backend.util.Setting.OPTIONAL_USER;
-import static de.schnippsche.solarreader.backend.util.Setting.PROVIDER_HOST;
+import static de.schnippsche.solarreader.backend.util.Setting.*;
 
 import de.schnippsche.solarreader.backend.calculator.MapCalculator;
 import de.schnippsche.solarreader.backend.command.Command;
@@ -32,35 +30,20 @@ import de.schnippsche.solarreader.backend.connection.general.ConnectionFactory;
 import de.schnippsche.solarreader.backend.connection.network.HttpConnection;
 import de.schnippsche.solarreader.backend.connection.network.HttpConnectionFactory;
 import de.schnippsche.solarreader.backend.field.PropertyField;
-import de.schnippsche.solarreader.backend.protocol.KnownProtocol;
 import de.schnippsche.solarreader.backend.provider.AbstractHttpProvider;
 import de.schnippsche.solarreader.backend.provider.CommandProviderProperty;
 import de.schnippsche.solarreader.backend.provider.ProviderProperty;
-import de.schnippsche.solarreader.backend.provider.SupportedInterface;
 import de.schnippsche.solarreader.backend.table.Table;
 import de.schnippsche.solarreader.backend.util.JsonTools;
 import de.schnippsche.solarreader.backend.util.Setting;
 import de.schnippsche.solarreader.backend.util.StringConverter;
 import de.schnippsche.solarreader.database.Activity;
-import de.schnippsche.solarreader.frontend.ui.HtmlInputType;
-import de.schnippsche.solarreader.frontend.ui.HtmlWidth;
-import de.schnippsche.solarreader.frontend.ui.UIInputElementBuilder;
-import de.schnippsche.solarreader.frontend.ui.UIList;
-import de.schnippsche.solarreader.frontend.ui.UITextElementBuilder;
-import de.schnippsche.solarreader.frontend.ui.ValueText;
-import de.schnippsche.solarreader.plugin.PluginMetadata;
+import de.schnippsche.solarreader.frontend.ui.*;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -75,15 +58,6 @@ import org.tinylog.Logger;
  * to interact with such devices by making HTTP requests. It may include functionality for querying
  * device status, sending commands, or configuring the device settings over the HTTP protocol.
  */
-@PluginMetadata(
-    name = "Tasmota",
-    version = "1.0.1",
-    author = "Stefan Töngi",
-    url = "https://github.com/solarreader-plugins/plugin-Tasmota",
-    svgImage = "tasmota.svg",
-    supportedInterfaces = {SupportedInterface.NONE},
-    usedProtocol = KnownProtocol.HTTP,
-    supports = "Tasmota Firmware")
 public class Tasmota extends AbstractHttpProvider {
   private static final String BASE_URL = "http://{provider_host}";
   private static final String DEFAULT_COMMAND = "/cm?cmnd=Status0";
@@ -113,8 +87,8 @@ public class Tasmota extends AbstractHttpProvider {
    * empty list of available commands and logs the instantiation of the object.
    *
    * @param connectionFactory the {@link ConnectionFactory} used to create and manage HTTP
-   *     connections for interacting with the Tasmota device. If {@code null}, a default {@link
-   *     HttpConnectionFactory} will be used.
+   *                          connections for interacting with the Tasmota device. If {@code null}, a default {@link
+   *                          HttpConnectionFactory} will be used.
    */
   public Tasmota(ConnectionFactory<HttpConnection> connectionFactory) {
     super(connectionFactory);
